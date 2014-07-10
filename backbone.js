@@ -9,7 +9,7 @@
 
   // Set up Backbone appropriately for the environment. Start with AMD.
   if (typeof define === 'function' && define.amd) {
-    define(['underscore', 'jquery', 'exports'], function(_, $, exports) {
+    define(['lodash', 'jquery', 'exports'], function(_, $, exports) {
       // Export global even in AMD case in case this script is loaded with
       // others that may still expect a global Backbone.
       root.Backbone = factory(root, exports, _, $);
@@ -17,7 +17,7 @@
 
   // Next for Node.js or CommonJS. jQuery may not be needed as a module.
   } else if (typeof exports !== 'undefined') {
-    var _ = require('underscore');
+    var _ = require('lodash');
     factory(root, exports, _);
 
   // Finally, as a browser global.
@@ -590,10 +590,10 @@
 
   });
 
-  // Underscore methods that we want to implement on the Model.
+  // lodash methods that we want to implement on the Model.
   var modelMethods = ['keys', 'values', 'pairs', 'invert', 'pick', 'omit', 'chain'];
 
-  // Mix in each Underscore method as a proxy to `Model#attributes`.
+  // Mix in each lodash method as a proxy to `Model#attributes`.
   _.each(modelMethods, function(method) {
     if (!_[method]) return;
     Model.prototype[method] = function() {
@@ -984,7 +984,7 @@
 
   });
 
-  // Underscore methods that we want to implement on the Collection.
+  // lodash methods that we want to implement on the Collection.
   // 90% of the core usefulness of Backbone Collections is actually implemented
   // right here:
   var methods = ['forEach', 'each', 'map', 'collect', 'reduce', 'foldl',
@@ -994,7 +994,7 @@
     'tail', 'drop', 'last', 'without', 'difference', 'indexOf', 'shuffle',
     'lastIndexOf', 'isEmpty', 'chain', 'sample', 'partition'];
 
-  // Mix in each Underscore method as a proxy to `Collection#models`.
+  // Mix in each lodash method as a proxy to `Collection#models`.
   _.each(methods, function(method) {
     if (!_[method]) return;
     Collection.prototype[method] = function() {
@@ -1004,7 +1004,7 @@
     };
   });
 
-  // Underscore methods that take a property name as an argument.
+  // lodash methods that take a property name as an argument.
   var attributeMethods = ['groupBy', 'countBy', 'sortBy', 'indexBy'];
 
   // Use attributes instead of properties.
